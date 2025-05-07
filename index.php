@@ -1,4 +1,45 @@
-<?php include 'db.php'; ?>
+<?php
+session_start();
+include 'db.php'; // Include database connection
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get form data
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validate email format
+    if (substr($email, -14) === "@g.bracu.ac.bd") {
+        // Query to check if user exists
+        $query = "SELECT * FROM User WHERE email = '$email'";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            // Fetch user data
+            $row = $result->fetch_assoc();
+
+            // Verify password
+            if (password_verify($password, $row['password'])) {
+                // Set session variables
+                $_SESSION['st_id'] = $row['st_id'];
+                $_SESSION['st_name'] = $row['st_name'];
+
+                // Redirect to student dashboard
+                header("Location: student_dashboard.php");
+                exit();
+            } else {
+                // Invalid password
+                $error = "Invalid password! Please try again.";
+            }
+        } else {
+            // No user found with that email
+            $error = "No account found with that email!";
+        }
+    } else {
+        // Invalid email domain
+        $error = "Please use a valid BRACU mail";
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,25 +105,26 @@
         </div>
     </nav>
 
-    <!-- Homepage Content -->
-    <div class="container mt-5 text-center">
-        <h1>Welcome to the BRACUBNB</h1>
-        <img src="images/hostel.jpg" alt="" class="home-image">
-    </div>
-
-    <!-- Login Options -->
+    <!-- Login Form -->
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card login-card">
                     <img src="images/studentlogin.png" alt="Hostel Image" class="img-fluid">
                     <h2>Student Login</h2>
-                    <form method="POST" action="student_dashboard.php">
+                    <form method="POST" action="index.php">
                         <input type="email" name="email" placeholder="Enter your email" class="form-control mb-3" required>
                         <input type="password" name="password" placeholder="Enter your password" class="form-control mb-3" required>
                         <button type="submit" class="btn btn-primary btn-block">Login</button>
                     </form>
-                    <div class="login-button">
+
+                    <?php if (isset($error)) { ?>
+                        <div class="alert alert-danger mt-3">
+                            <?php echo $error; ?>
+                        </div>
+                    <?php } ?>
+
+                    <div class="login-button mt-3">
                         <a href="admin-login.php">Go to Admin Panel</a>
                     </div>
                 </div>
@@ -97,3 +139,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
