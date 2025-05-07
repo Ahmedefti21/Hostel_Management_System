@@ -1,43 +1,42 @@
 <?php
 session_start();
-include 'db.php'; // database connection
+include 'db.php'; // Include database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Retrieve form data
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Check if email ends with @g.bracu.ac.bd
-    if (strpos($email, '@g.bracu.ac.bd') !== false) {
-        // Query the database to verify the email and password
-        $query = "SELECT * FROM student WHERE email = '$email'";
+    // Check if email ends with "@g.bracu.ac.bd"
+    if (substr($email, -14) === "@g.bracu.ac.bd") {
+        // Query to check if the user exists with the provided email
+        $query = "SELECT * FROM User WHERE email = '$email'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
-            $student = $result->fetch_assoc();
-            if (password_verify($password, $student['password'])) {
-                // Start session and redirect to the student dashboard
-                $_SESSION['student_id'] = $student['student_id'];
-                $_SESSION['email'] = $student['email'];
-                header("Location: student_dashboard.php"); // Redirect to student dashboard
+            // User found, fetch the data
+            $row = $result->fetch_assoc();
+
+            // Verify the password
+            if (password_verify($password, $row['password'])) {
+                // Password is correct, set session variables
+                $_SESSION['st_id'] = $row['st_id'];
+                $_SESSION['st_name'] = $row['st_name'];
+
+                // Redirect to the student dashboard
+                header("Location: student_dashboard.php");
                 exit();
             } else {
-                $error = "Invalid password!";
+                // Invalid password
+                echo "Invalid password!";
             }
         } else {
-            $error = "No such student found!";
+            // No user found with that email
+            echo "No account found with that email!";
         }
     } else {
-        $error = "Invalid email format! Use your @g.bracu.ac.bd email.";
+        // Email does not end with @g.bracu.ac.bd
+        echo "Please use a valid BRACU email address (ending with @g.bracu.ac.bd).";
     }
 }
 ?>
-
-<!-- HTML Login Form -->
-<form method="POST" action="studentlogin.php">
-    <input type="email" name="email" placeholder="Enter your email" required>
-    <input type="password" name="password" placeholder="Enter your password" required>
-    <button type="submit">Login</button>
-</form>
-<?php if (isset($error)) echo "<p>$error</p>"; ?>
-
-<a href="adminlogin.php">Go to Admin Panel</a>

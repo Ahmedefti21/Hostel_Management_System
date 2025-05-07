@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Database connection
 include 'db.php'; 
 
@@ -14,11 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     // SQL query to insert data into the database
-    $query = "INSERT INTO students (name, email, student_id, department, semester, address, phone_number, password) 
+    $query = "INSERT INTO User (st_name, email, st_id, dept, semester, address, st_contact, password) 
               VALUES ('$name', '$email', '$student_id', '$department', '$semester', '$address', '$phone_number', '$password')";
 
     if ($conn->query($query) === TRUE) {
-        echo '<script>alert("Registration successful! Please log in."); window.location.href="studentlogin.php";</script>';
+        // Redirecting to the homepage (index.php) with the user's name
+        header("Location: index.php?registered_name=" . urlencode($name));
+        exit();
     } else {
         echo "Error: " . $query . "<br>" . $conn->error;
     }
