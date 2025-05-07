@@ -1,64 +1,42 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: adminlogin.php");
+
+// Ensure the user is logged in as an admin
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: admin_login.php");  // Redirect to admin login if not logged in as admin
     exit();
 }
+
+// Fetch admin details
+$admin_name = $_SESSION['admin_name'];
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Admin Dashboard</title>
-<style>
-body {
-    background-color: #89CFF0;
-    font-family: Arial, sans-serif; /* Added a default font */
-}
-h1 {
-    text-align: center;
-}
-h3 {
-    text-align: center;
-    margin-bottom: 20px; /* Added some space below the heading */
-}
-ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0;
-    margin: 0;
-    display: flex;             /* Use flexbox for horizontal layout */
-    justify-content: center;   /* Center items horizontally */
-    align-items: center;       /* Center items vertically */
-    flex-wrap: wrap;          /* Allow items to wrap to the next line */
-}
-li {
-    margin: 10px;           /* Add spacing around each list item */
-}
-li a {
-    display: block;          /* Make the entire link clickable */
-    padding: 10px 20px;      /* Add padding inside the link */
-    background-color: #007BFF; /* A nice blue color */
-    color: white;            /* White text */
-    text-decoration: none;   /* Remove underlines */
-    border-radius: 5px;       /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-li a:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-<!-- Admin Dashboard content -->
-<h1>Welcome to Admin Dashboard</h1>
-<h3>Manage the hostel system here:</h3>
-<ul>
-    <li><a href="view_room_details.php">View Room Details</a></li>
-    <li><a href="view_student_details.php">View Student Details</a></li>
-    <li><a href="view_staff_details.php">View Staff Details</a></li>
-    <li><a href="view_requests.php">View Requests</a></li>
-</ul>
-
+    <div class="container mt-5">
+        <h1>Welcome, <?php echo $admin_name; ?>!</h1>
+        <div class="row">
+            <!-- Admin functionalities like handling requests -->
+            <div class="col-md-4">
+                <a href="visitor_requests.php" class="btn btn-primary w-100 mb-2">Manage Visitor Requests</a>
+            </div>
+            <div class="col-md-4">
+                <a href="maintenance_requests.php" class="btn btn-primary w-100 mb-2">Manage Maintenance Requests</a>
+            </div>
+            <div class="col-md-4">
+                <a href="leave_requests.php" class="btn btn-primary w-100 mb-2">Manage Leave Requests</a>
+            </div>
+            <div class="col-md-4">
+                <a href="room_bookings.php" class="btn btn-primary w-100 mb-2">View Room Bookings</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
