@@ -11,7 +11,11 @@ CREATE TABLE User (
     st_id INT PRIMARY KEY,
     st_name VARCHAR(100),
     st_contact VARCHAR(50),
-    dept VARCHAR(100)
+    dept VARCHAR(100),
+    semester INT,
+    email VARCHAR(100),
+    password VARCHAR(100),
+    address TEXT
 );
 
 -- Creating the 'room' table
@@ -71,8 +75,13 @@ CREATE TABLE Maintenance_Req (
 );
 
 -- Insert sample data for 'user' table
-INSERT INTO User (st_id, st_name, st_contact, dept) VALUES
-(23301687, 'efti', '01712666554', 'CSE, 7');
+-- Creating the 'User' table
+
+
+-- Inserting data into the 'User' table
+INSERT INTO User (st_id, st_name, st_contact, dept, semester, email, password, address) 
+VALUES (23301687, 'efti', '01712666554', 'CSE, 7', 7, 'efti@g.bracu.ac.bd', 'password123', 'Banasree');
+
 
 -- Insert sample data for 'room' table
 INSERT INTO Room (room_number, status, fee, single, shared, admin_id) VALUES
