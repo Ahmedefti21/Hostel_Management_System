@@ -9,8 +9,8 @@ if (!isset($_SESSION['student_id'])) {
 
 // Fetch student info (optional, for display purposes)
 include 'db.php';
-$student_id = $_SESSION['student_id'];
-$query = "SELECT * FROM students WHERE student_id = '$student_id'";
+$st_id = $_SESSION['student_id'];
+$query = "SELECT * FROM students WHERE st_id = '$student_id'";
 $result = $conn->query($query);
 $student = $result->fetch_assoc();
 ?>
@@ -39,6 +39,7 @@ $student = $result->fetch_assoc();
             <li><a href="complaints.php">File a Complaint</a></li>
             <li><a href="leave_request.php">Request Leave</a></li>
             <li><a href="student_report.php">View Report</a></li>
+            <li><a href="visitor_request.php">Request Visitor</a></li>
         </ul>
     </div>
     
