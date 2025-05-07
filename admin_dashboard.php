@@ -10,8 +10,8 @@ if (!isset($_SESSION['admin'])) {
 <h1>Welcome to Admin Dashboard</h1>
 <p>Manage the hostel system here:</p>
 <ul>
-    <li><a href="manage_rooms.php">Manage Rooms</a></li>
-    <li><a href="view_complaints.php">View Complaints</a></li>
-    <li><a href="view_leave_requests.php">View Leave Requests</a></li>
-    <li><a href="generate_reports.php">Generate Reports</a></li>
+    <li><a href="view_room_details.php">View Room Details</a></li>
+    <li><a href="view_student_details.php">View Student Details</a></li>
+    <li><a href="view_staff_details.php">View Staff Details</a></li>
+    <li><a href="view_requests.php">View Requests</a></li>
 </ul>
