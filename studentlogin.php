@@ -1,28 +1,24 @@
 <?php
 session_start();
-include 'db.php'; // Include database connection
+include 'db.php'; // database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Check if the email ends with @g.bracu.ac.bd
+    // Check if email ends with @g.bracu.ac.bd
     if (strpos($email, '@g.bracu.ac.bd') !== false) {
-        // Prepare a query to avoid SQL injection
-        $query = "SELECT * FROM students WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $email); // 's' means string parameter
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Query the database to verify the email and password
+        $query = "SELECT * FROM student WHERE email = '$email'";
+        $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
             $student = $result->fetch_assoc();
-            // Verify the password against the hashed password stored in the database
             if (password_verify($password, $student['password'])) {
-                // Start session and redirect to the booking page
+                // Start session and redirect to the student dashboard
                 $_SESSION['student_id'] = $student['student_id'];
                 $_SESSION['email'] = $student['email'];
-                header("Location: booking.php");
+                header("Location: student_dashboard.php"); // Redirect to student dashboard
                 exit();
             } else {
                 $error = "Invalid password!";
@@ -37,33 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <!-- HTML Login Form -->
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <!-- Student Login Card -->
-            <div class="card login-card">
-                <!-- Inserted Image for Student Login -->
-                <img src="images/studentlogin.jpg" alt="Hostel Image" class="img-fluid">
-                <h2>Student Login</h2>
-                <form method="POST" action="studentlogin.php">
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Enter your email" class="form-control mb-3" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" placeholder="Enter your password" class="form-control mb-3" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                </form>
-                <div class="login-button">
-                    <a href="admin-login.php">Go to Admin Panel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<form method="POST" action="studentlogin.php">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <input type="password" name="password" placeholder="Enter your password" required>
+    <button type="submit">Login</button>
+</form>
+<?php if (isset($error)) echo "<p>$error</p>"; ?>
 
-<?php if (isset($error)) echo "<p class='text-danger'>$error</p>"; ?>
-
-<footer class="text-center mt-5">
-    <p>&copy; 2025 Hostel Management System. All rights reserved.</p>
-</footer>
+<a href="adminlogin.php">Go to Admin Panel</a>
