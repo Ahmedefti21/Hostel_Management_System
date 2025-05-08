@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Include database connection
+include 'db.php';  // Database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
@@ -124,8 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     <?php } ?>
 
+                    <!-- Go to Admin Panel link -->
                     <div class="login-button mt-3">
-                        <a href="admin-login.php">Go to Admin Panel</a>
+                        <a href="admin_login.php">Go to Admin Panel</a>
                     </div>
                 </div>
             </div>
@@ -135,8 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <footer class="text-center mt-5">
         <p>&copy; 2025 Hostel Management System. All rights reserved.</p>
     </footer>
-
+                        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

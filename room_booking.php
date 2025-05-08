@@ -9,8 +9,10 @@ if (!isset($_SESSION['st_id'])) {
 }
 
 // Fetch available rooms that are not booked
-$query = "SELECT * FROM Room WHERE status = 'Available' AND st_id IS NULL";
+$query = $query = "SELECT * FROM Room"; // Fetch all rooms regardless of booking status
 $result = $conn->query($query);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +20,8 @@ $result = $conn->query($query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="5">
+
     <title>Room Booking</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -36,12 +40,21 @@ $result = $conn->query($query);
             border-radius: 10px;
             padding: 20px;
             margin: 10px 0;
+            transition: transform 0.3s;
         }
         .room-card h5 {
             color: #800000;
         }
         .room-card p {
             color: #555;
+        }
+        .room-card.booked {
+            background-color: #f2f2f2;
+            color: #888;
+            cursor: not-allowed;
+        }
+        .room-card.booked h5, .room-card.booked p {
+            color: #888;
         }
         .btn-primary {
             background-color: #800000;
@@ -61,10 +74,16 @@ $result = $conn->query($query);
     <div class="container">
         <h1 class="text-center text-white mb-4">Available Rooms</h1>
         <div class="row">
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
+            <?php
+            // Fetch all rooms
+            $query = "SELECT * FROM Room";
+            $result = $conn->query($query);
+            
+            if ($result->num_rows > 0):
+                while ($row = $result->fetch_assoc()):
+            ?>
                     <div class="col-md-4">
-                        <div class="card room-card">
+                        <div class="card room-card <?php echo ($row['status'] == 'Booked') ? 'booked' : ''; ?>">
                             <div class="card-body">
                                 <h5 class="card-title">Room Number: <?php echo $row['room_number']; ?></h5>
                                 <p class="card-text">Type: <?php echo $row['shared'] == 1 ? 'Shared' : 'Single'; ?></p>
@@ -72,14 +91,18 @@ $result = $conn->query($query);
                                 <?php if ($row['shared'] == 1): ?>
                                     <p class="card-text">Available Spots: <?php echo $row['available_spots']; ?></p>
                                 <?php endif; ?>
-                                <form method="POST" action="book_room.php">
-                                    <input type="hidden" name="room_number" value="<?php echo $row['room_number']; ?>">
-                                    <button type="submit" class="btn btn-primary btn-block">Book Room</button>
-                                </form>
+                                <?php if ($row['status'] == 'Available'): ?>
+                                    <form method="POST" action="book_room.php">
+                                        <input type="hidden" name="room_number" value="<?php echo $row['room_number']; ?>">
+                                        <button type="submit" class="btn btn-primary btn-block">Book Room</button>
+                                    </form>
+                                <?php elseif ($row['status'] == 'Booked'): ?>
+                                    <p class="card-text text-danger">Room Booked</p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
-                <?php endwhile; ?>
+            <?php endwhile; ?>
             <?php else: ?>
                 <p class="text-white">No rooms available at the moment.</p>
             <?php endif; ?>
@@ -87,3 +110,4 @@ $result = $conn->query($query);
     </div>
 </body>
 </html>
+

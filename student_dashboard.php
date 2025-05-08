@@ -6,16 +6,8 @@ if (!isset($_SESSION['st_id'])) {
     header("Location: index.php");  // Redirect to homepage if not logged in
     exit();
 }
-<<<<<<< HEAD
 
-// Fetch student info (optional, for display purposes)
 include 'db.php';
-$st_id = $_SESSION['student_id'];
-$query = "SELECT * FROM students WHERE st_id = '$student_id'";
-$result = $conn->query($query);
-$student = $result->fetch_assoc();
-=======
->>>>>>> 5fa6782dba1251601ee60efea3ec60b6e70cfeff
 ?>
 
 <!DOCTYPE html>
@@ -75,26 +67,9 @@ $student = $result->fetch_assoc();
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-<<<<<<< HEAD
-        <h2>Welcome, <?php echo $student['name']; ?>!</h2>
-        <p>Your student ID: <?php echo $student['student_id']; ?></p>
+    <div class="container">
+        <h1 class="text-center text-white mb-4">Welcome, <?php echo $_SESSION['st_name']; ?>!</h1>
         
-        <!-- Booking option -->
-        <h3>Room Booking</h3>
-        <p>Click below to book a room:</p>
-        <a href="booking.php" class="btn btn-primary">Book a Room</a>
-        
-        <!-- Add other features here, for example: -->
-        <h3>Other Features</h3>
-        <ul>
-            <li><a href="complaints.php">File a Complaint</a></li>
-            <li><a href="leave_request.php">Request Leave</a></li>
-            <li><a href="student_report.php">View Report</a></li>
-            <li><a href="visitor_request.php">Request Visitor</a></li>
-        </ul>
-=======
-        <h1 class="text-center">Welcome, <?php echo $_SESSION['st_name']; ?>!</h1>
         <div class="row">
             <div class="col-md-6">
                 <div class="dashboard-card">
@@ -125,7 +100,6 @@ $student = $result->fetch_assoc();
                 </div>
             </div>
         </div>
->>>>>>> 5fa6782dba1251601ee60efea3ec60b6e70cfeff
     </div>
 </body>
 </html>
