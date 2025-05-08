@@ -11,6 +11,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } else {
-    echo "Connection successful"; // Ensure this line is within quotes
+    // echo "Connection successful"; // Remove this line or comment it out
+
 }
 ?>

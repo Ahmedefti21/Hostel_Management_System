@@ -39,22 +39,74 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         /* Background gradient for the body */
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background-image: linear-gradient(120deg, #800000 0%, #f4f4f4); /* Maroon and Offwhite gradient */
+            background: linear-gradient(120deg, #800000, #f4f4f4); /* Maroon and Off-white gradient */
             background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #800000;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background-color: #800000;
+            border-color: #800000;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #5b0000;
+            border-color: #5b0000;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .login-button a {
+            text-decoration: none;
+            color: #800000;
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .login-button a:hover {
+            color: #5b0000;
         }
     </style>
 </head>
 <body>
     <!-- Admin Login Form -->
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card login-card">
                     <h2>Admin Login</h2>
                     <form method="POST" action="admin_login.php">
-                        <input type="email" name="email" placeholder="Enter your email" class="form-control mb-3" required>
-                        <input type="text" name="admin_id" placeholder="Enter Admin ID" class="form-control mb-3" required>
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <input type="email" name="email" placeholder="Enter your email" class="form-control" required>
+                        <input type="text" name="admin_id" placeholder="Enter Admin ID" class="form-control" required>
+                        <button type="submit" class="btn btn-primary">Login</button>
                     </form>
 
                     <?php if (isset($error)) { ?>
@@ -63,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     <?php } ?>
 
-                    <div class="login-button mt-3">
+                    <div class="login-button">
                         <a href="index.php">Go to Student Login</a>
                     </div>
                 </div>
