@@ -9,14 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reason = $_POST['reason'];
 
     // Sanitize the data
-    $st_id = mysqli_real_escape_string($conn, $student_id);
+    $st_id = mysqli_real_escape_string($conn, $st_id);
     $start_date = mysqli_real_escape_string($conn, $start_date);
     $end_date = mysqli_real_escape_string($conn, $end_date);
     $reason = mysqli_real_escape_string($conn, $reason);
 
     // Insert the data into the database
     $sql = "INSERT INTO leave_requests (st_id, start_date, end_date, reason)
-            VALUES ('$student_id', '$start_date', '$end_date', '$reason')";
+            VALUES ('$st_id', '$start_date', '$end_date', '$reason')";
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to a confirmation page

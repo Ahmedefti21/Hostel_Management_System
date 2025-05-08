@@ -2,7 +2,7 @@
 session_start();
 include 'db.php'; // Database connection
 
-// Ensure the user is logged in as an admin
+
 if (!isset($_SESSION['admin_id'])) {
     header("Location: admin_login.php");  // Redirect to login if not logged in as admin
     exit();
