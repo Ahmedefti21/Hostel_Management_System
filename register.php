@@ -33,12 +33,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Registration</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(120deg, #800000, #f4f4f4); /* Maroon and Offwhite gradient */
+      background-attachment: fixed;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .form-floating input,
+    .form-floating select {
+      background-color: #f4f4f4;
+      color: #800000;
+    }
+
+    .form-floating label {
+      color: #800000;
+    }
+
+    .btn-primary {
+      background-color: #800000;
+      border-color: #800000;
+    }
+
+    .btn-primary:hover {
+      background-color: #5b0000;
+      border-color: #5b0000;
+    }
+
+    .card {
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #ffffff;
+    }
+
+    h1 {
+      color: #800000;
+      font-weight: bold;
+    }
+
+    footer {
+      background-color: #800000;
+      color: white;
+      padding: 10px 0;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container mt-5">
-    <h1 class="text-center mt-3 fw-bold">Registration Form</h1>
+    <h1 class="text-center mt-3">Registration Form</h1>
     <p class="mb-4 text-center">Please fill in this form to register for our service.</p>
 
     <form action="register.php" method="POST"> 
@@ -104,6 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <footer class="text-center">
+    <p>&copy; 2025 Hostel Management System. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

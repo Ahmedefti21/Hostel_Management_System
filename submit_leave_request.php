@@ -3,7 +3,7 @@ session_start();
 include 'db.php'; // Include database connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $st_id = $_POST['student_id'];
+    $st_id = $_POST['st_id']; // Assuming st_id is passed from the form
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $reason = $_POST['reason'];

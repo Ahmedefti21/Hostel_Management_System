@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="rooms.php">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link" href="facilities.php">Facilities</a></li>
-                    <li class="nav-item"><a class="nav-link" href="about.php">About Us</a></li>
+                    
                     <li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>
                 </ul>
             </div>
@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card login-card">
+                    <h2 class="login-heading">Welcome to BRACUBnB</h2>
                     <img src="images/studentlogin.png" alt="Hostel Image" class="img-fluid">
                     <h2>Student Login</h2>
                     <form method="POST" action="index.php">
