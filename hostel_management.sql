@@ -26,21 +26,21 @@ CREATE TABLE Room (
     single INT,
     shared INT,
     admin_id INT,
-    available_spots INT,
     FOREIGN KEY (admin_id) REFERENCES Admin(admin_id) -- Admin's reference here
 );
 
 -- Creating the 'visitor' table
 CREATE TABLE Visitor (
     visitor_id INT PRIMARY KEY,
-    name VARCHAR(100),
-    date DATE,
-    purpose TEXT,
-    st_id INT,
+    visitor_name VARCHAR(255),
+    visitation_date DATE,
+    visitation_purpose TEXT,
+    st_id VARCHAR(20),
     admin_id INT,
     FOREIGN KEY (st_id) REFERENCES User(st_id),
     FOREIGN KEY (admin_id) REFERENCES Admin(admin_id) -- Admin's reference here
 );
+
 
 -- Creating the 'bill' table
 CREATE TABLE Bill (
@@ -75,7 +75,6 @@ CREATE TABLE Maintenance_Req (
     FOREIGN KEY (admin_id) REFERENCES Admin(admin_id)
 );
 
-
 -- Insert sample data for 'user' table
 -- Creating the 'User' table
 
@@ -86,9 +85,8 @@ VALUES (23301687, 'efti', '01712666554', 'CSE, 7', 7, 'efti@g.bracu.ac.bd', 'pas
 
 
 -- Insert sample data for 'room' table
-INSERT INTO Room (room_number, status, fee, single, shared, admin_id) 
-VALUES (102, 'Available', 2500.00, 1, 1, 1);
-
+INSERT INTO Room (room_number, status, fee, single, shared, admin_id) VALUES
+(101, 'Occupied', 2000.00, 1, 1, 1);
 
 -- Insert sample data for 'visitor' table
 INSERT INTO Visitor (visitor_id, name, date, purpose, st_id, admin_id) VALUES
