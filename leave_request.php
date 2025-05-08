@@ -6,22 +6,6 @@ if (!isset($_SESSION['st_id'])) {
     header("Location: studentlogin.php"); // Redirect to student login if not logged in
     exit();
 }
-
-// Include database connection
-include 'db.php';
-
-// Fetch student info
-$st_id = $_SESSION['student_id'];
-$query = "SELECT * FROM user WHERE st_id = '$st_id'";
-$result = $conn->query($query);
-
-// Check if the student exists
-if ($result->num_rows === 0) {
-    echo "Student not found.";
-    exit();
-}
-
-$student = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
