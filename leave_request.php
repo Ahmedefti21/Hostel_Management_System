@@ -2,8 +2,8 @@
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['student_id'])) {
-    header("Location: studentlogin.php");
+if (!isset($_SESSION['st_id'])) {
+    header("Location: studentlogin.php"); // Redirect to student login if not logged in
     exit();
 }
 ?>
@@ -21,8 +21,8 @@ if (!isset($_SESSION['student_id'])) {
         <h2>Leave Request Form</h2>
         <form action="submit_leave_request.php" method="POST"> <!-- Important: Create submit_leave_request.php -->
             <div class="mb-3">
-                <label for="student_id" class="form-label">Student ID:</label>
-                <input type="text" class="form-control" id="student_id" name="student_id" value="<?php echo $_SESSION['student_id']; ?>" readonly>
+                <label for="st_id" class="form-label">Student ID:</label>
+                <input type="text" class="form-control" id="st_id" name="stust_iddent_id" value="<?php echo $_SESSION['st_id']; ?>" readonly>
             </div>
             <div class="mb-3">
                 <label for="start_date" class="form-label">Start Date:</label>
