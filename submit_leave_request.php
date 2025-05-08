@@ -1,15 +1,15 @@
 <?php
 session_start();
-include 'db.php'; // Include database connection
+include 'db.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $st_id = $_POST['st_id']; // Assuming st_id is passed from the form
+    $st_id = $_POST['st_id']; 
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $reason = $_POST['reason'];
 
-    // Sanitize the data
-    $st_id = mysqli_real_escape_string($conn, $st_id);
+    
+    $st_id = mysqli_real_escape_string($conn, $student_id);
     $start_date = mysqli_real_escape_string($conn, $start_date);
     $end_date = mysqli_real_escape_string($conn, $end_date);
     $reason = mysqli_real_escape_string($conn, $reason);
