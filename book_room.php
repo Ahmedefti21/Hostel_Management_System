@@ -30,22 +30,34 @@ if (isset($_POST['room_number'])) {
             // User has already booked a room
             echo "<div class='alert alert-danger'>You have already booked a room! You cannot book another room.</div>";
         } else {
+            // Check if the room is a shared room and has available spots
             if ($row['shared'] == 1 && $available_spots > 0) {
                 // Decrease available spots for shared rooms
                 $new_available_spots = $available_spots - 1;
-                $update_room = "UPDATE Room SET status = 'Booked', st_id = '$st_id', available_spots = '$new_available_spots' WHERE room_number = '$room_number'";
+
+                // If the room is fully booked, mark it as 'Booked'
+                $room_status = $new_available_spots == 0 ? 'Booked' : 'Available';
+
+                // Update the room status and assign it to the student
+                $update_room = "UPDATE Room SET status = '$room_status', st_id = '$st_id', available_spots = '$new_available_spots' WHERE room_number = '$room_number'";
+
+                if ($conn->query($update_room) === TRUE) {
+                    echo "<div class='alert alert-success'>Room booked successfully!</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Error updating room status: " . $conn->error . "</div>";
+                }
             } elseif ($row['shared'] == 0) {
-                // Book the single room
+                // Book the single room directly (no need to check available spots)
                 $update_room = "UPDATE Room SET status = 'Booked', st_id = '$st_id' WHERE room_number = '$room_number'";
+
+                if ($conn->query($update_room) === TRUE) {
+                    echo "<div class='alert alert-success'>Room booked successfully!</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Error updating room status: " . $conn->error . "</div>";
+                }
             } else {
                 echo "<div class='alert alert-danger'>No available spots in this room!</div>";
                 exit();
-            }
-
-            if ($conn->query($update_room) === TRUE) {
-                echo "<div class='alert alert-success'>Room booked successfully!</div>";
-            } else {
-                echo "<div class='alert alert-danger'>Error updating room status: " . $conn->error . "</div>";
             }
         }
     } else {
